@@ -137,7 +137,7 @@
         - percona-prometheus
         - percona-orchestrator
         - percona-node_exporter
-        - percona-qan-api
+        - percona-qan-api-ch
         - percona-qan-app
         - percona-qan-app2
         - percona-toolkit
@@ -145,6 +145,8 @@
         - pmm-server
         - pmm-manage
         - pmm-update
+        - percona-clickhouse-client
+        - percona-clickhouse-server
 
     - name: PMM                        | Fix nginx config
       replace:

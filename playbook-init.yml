@@ -4,11 +4,17 @@
   gather_facts: yes
 
   tasks:
-    - name: cloud-init                 | Create dirs
+    - name: PMM                        | Create dirs
       file: path={{ item }} state=directory owner=pmm group=pmm
       with_items:
         - /opt/prometheus/data
         - /opt/consul-data
+        - /srv/qan-api
+
+    - name: PMM                        | Create dirs
+      file: path={{ item }} state=directory owner=clickhouse group=clickhouse
+      with_items:
+        - /srv/clickhouse
 
     - name: NGINX                      | Disable daemon
       lineinfile:
@@ -84,7 +90,7 @@
         path: /var/lib/grafana/PERCONA_DASHBOARDS_VERSION
         state: present
 
-    - name: PMM                        | Stop services
+    - name: PMM                        | Restart orchestrator
       shell: supervisorctl restart orchestrator
 
     - name: PMM                        | Wait for orchestrator
@@ -94,6 +100,15 @@
         state: present
         delay: 10
         timeout: 180
+
+    - name: PMM                        | Create ClickHouse database
+      command: clickhouse-client --query="CREATE DATABASE pmm"
+
+    - name: PMM                        | Import ClickHouse database
+      command: bash -c "clickhouse-client -n -m -d pmm < /usr/share/percona-qan-api/schema/pmm.clickhouse.sql"
+
+    - name: PMM                        | Create SQLite database
+      command: bash -c "sqlite3 /srv/qan-api/pmm.sqlite < /usr/share/percona-qan-api/schema/pmm.sqlite.sql"
 
     - name: PMM                        | Create pmm-update dirs
       file: path={{ item }} state=directory
@@ -106,7 +121,7 @@
 
     - name: PMM                        | Run pmm-update
       when: not pmm_update_file.stat.exists
-      command: /usr/bin/pmm-update-stage2
+      command: echo /usr/bin/pmm-update-stage2
 
     - name: PMM                        | Stop services
       shell: supervisorctl shutdown
