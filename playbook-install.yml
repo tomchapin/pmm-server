@@ -134,7 +134,7 @@
         - nginx
         - percona-consul
         - percona-grafana
-        - percona-prometheus
+        - percona-prometheus2
         - percona-orchestrator
         - percona-qan-api
         - percona-qan-app
