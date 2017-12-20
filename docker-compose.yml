@@ -7,6 +7,7 @@ services:
     container_name: pmm-data
     volumes:
       - /opt/prometheus/data
+      - /opt/alertmanager/data
       - /opt/consul-data
       - /var/lib/mysql
       - /var/lib/grafana

@@ -38,6 +38,7 @@
       file: path={{ item }} state=directory owner=pmm
       with_items:
         - /opt/prometheus/data
+        - /opt/alertmanager/data
         - /opt/consul-data
 
     - name: cloud-init                 | Configure yum-cron
