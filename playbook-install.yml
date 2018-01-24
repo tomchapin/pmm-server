@@ -133,19 +133,19 @@
       with_items:
         - nginx
         - percona-consul-0.8.5-1.el7.x86_64
-        - percona-grafana-4.6.1-1.el7.x86_64
+        - percona-grafana-4.6.3-1.el7.x86_64
         - percona-prometheus2
         - percona-orchestrator-2.1.5-1.gitfae7c1e.el7.x86_64
-        - percona-qan-api-1.5.3-2.1712052126.db3d0e5.el7.x86_64
-        - percona-qan-app-1.5.3-2.1712141525.ba005e5.el7.noarch
-        - percona-toolkit-3.0.5-1.el7.x86_64
-        - percona-dashboards-1.5.3-1.1712061550.a804940.el7.noarch
-        - pmm-server-1.5.3-7.1712151258.1ebfe3f.el7.noarch
-        - pmm-client-1.5.3-1.x86_64
-        - pmm-manage-1.5.3-1.1712061038.e54078e.el7.x86_64
-        - pmm-managed-1.5.3-2.1712130856.2fdf528.el7.x86_64
+        - percona-qan-api-1.6.0-2.1801161622.28210fd.el7.x86_64
+        - percona-qan-app-1.6.0-2.1801161615.0c543d1.el7.noarch
+        - percona-toolkit-3.0.6-1.el7.x86_64
+        - percona-dashboards-1.6.0-1.1801181244.26c4d72.el7.noarch
+        - pmm-server-1.6.0-7.1801052009.ec2074a.el7.noarch
+        - pmm-client-1.6.0-1.x86_64
+        - pmm-manage-1.6.0-1.1801041742.e54078e.el7.x86_64
+        - pmm-managed-1.6.0-2.1801080727.2fdf528.el7.x86_64
         - pmm-update
-        - rds_exporter-1.5.3-1.1712052129.1624161.el7.x86_64
+        - rds_exporter-1.6.0-1.1801041743.801736b.el7.x86_64
 
     - name: PMM                        | Fix nginx config
       replace:
