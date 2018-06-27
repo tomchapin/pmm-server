@@ -1,4 +1,5 @@
-node_cpu_total = sum(node_cpu) by (cpu)
-node_cpu_total_in = sum(node_cpu) by (instance)
-node_cpu_total_avg = sum(rate(node_cpu{mode!='idle',mode!="iowait"}[1m]) or irate(node_cpu{mode!='idle',mode!="iowait"}[5m])) by (instance) / count(node_cpu{mode="user"}) by (instance) * 100
-node_cpu_total_avg_system = avg(sum(rate(node_cpu{mode!='idle',mode!="iowait"}[1m]) or irate(node_cpu{mode!='idle',mode!="iowait"}[5m])) by (instance) / count(node_cpu{mode="user"}) by (instance) * 100 or (avg_over_time(node_cpu_average{mode='total'}[1m]) or avg_over_time(node_cpu_average{mode='total'}[5m])))
+node_memory_available_percent = (node_memory_MemAvailable or (node_memory_MemFree + node_memory_Buffers + node_memory_Cached)) / node_memory_MemTotal * 100
+
+node_cpu_load_avarage_percent = avg(sum(rate(node_cpu{mode!="idle",mode!="iowait"}[1m]) or irate(node_cpu{mode!="idle",mode!="iowait"}[5m])) BY (cpu,instance)) BY (instance) * 100 or (avg_over_time(node_cpu_average{mode="total"}[1m]) or avg_over_time(node_cpu_average{mode="total"}[5m]))
+
+node_cpu_active_average_percent = avg(sum(node_cpu{mode!="idle",mode!="iowait"}) BY (cpu,instance)) BY (instance) * 100
