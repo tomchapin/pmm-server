@@ -250,13 +250,17 @@ def rename_panels():
         print '  * Renaming %r' % (app,)
         panels_list = os.listdir(GRAFANA_PLUGINS_DR)
         for panel in panels_list:
-            print '   * %r -> ' % (panel,),
             panel_path = os.path.join(GRAFANA_PLUGINS_DR, panel, 'dist/plugin.json')
             if os.path.exists(panel_path):
+                print '   * %r -> ' % (panel,),
                 with open(panel_path, 'r') as f:
                     panel_params = json.loads(f.read())
                     print '%r' % (panel_params['id'],)
                     os.rename(os.path.join(GRAFANA_PLUGINS_DR, panel), os.path.join(GRAFANA_PLUGINS_DR, panel_params['id']))
+                    try:
+                        shutil.rmtree(os.path.join(GRAFANA_PLUGINS_DR, panel), False)
+                    except Exception as err:
+                        print '  * Failed to remove %s: %s' % (os.path.join(GRAFANA_PLUGINS_DR, panel), err)
 
 
 def copy_apps():
